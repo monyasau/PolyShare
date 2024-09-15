@@ -1,12 +1,18 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const app = express();
 const PORT = 2345;
 const FILE_DIRECTORY = path.join(__dirname, 'shared_files');
 
-const os = require('os');
+
+// To Ensure the shared_files directory exists
+if (!fs.existsSync(FILE_DIRECTORY)) {
+    // If it does not exist the it will create it at runtime
+    fs.mkdirSync(FILE_DIRECTORY);
+}
 
 const networkInterfaces = os.networkInterfaces();
 let localIP;
@@ -22,7 +28,8 @@ for (const interface of Object.values(networkInterfaces)) {
 }
 
 // This shall Serve static HTML/CSS/JS files for the web interface
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // API route to fetch available files (selected ofcourse)
 app.get('/api/files', (req, res) => {
@@ -47,4 +54,5 @@ app.get('/download/:filename', (req, res) => {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://${localIP}:${PORT}`);
+    console.log(`Shared files directory: ${FILE_DIRECTORY}`);
 });
