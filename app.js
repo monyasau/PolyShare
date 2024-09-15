@@ -18,3 +18,13 @@ app.get('/api/files', (req, res) => {
         res.json(files);
     });
 });
+
+// Dynamic route for download of specific files
+app.get('/download/:filename', (req, res) => {
+    const file = path.join(FILE_DIRECTORY, req.params.filename);
+    res.download(file, (err) => {
+        if (err) {
+            res.status(404).send('File not found');
+        }
+    });
+});
