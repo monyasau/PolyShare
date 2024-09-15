@@ -6,6 +6,21 @@ const app = express();
 const PORT = 2345;
 const FILE_DIRECTORY = path.join(__dirname, 'shared_files');
 
+const os = require('os');
+
+const networkInterfaces = os.networkInterfaces();
+let localIP;
+
+for (const interface of Object.values(networkInterfaces)) {
+    for (const iface of interface) {
+        if (iface.family === 'IPv4' && !iface.internal) {
+            localIP = iface.address;
+            break;
+        }
+    }
+    if (localIP) break;
+}
+
 // This shall Serve static HTML/CSS/JS files for the web interface
 app.use(express.static('public'));
 
@@ -31,5 +46,5 @@ app.get('/download/:filename', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://192.168.0.122:${PORT}`);
+    console.log(`Server is running on http://${localIP}:${PORT}`);
 });
