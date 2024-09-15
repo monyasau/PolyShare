@@ -31,5 +31,31 @@ function downloadFile(fileName) {
     window.location.href = `/download/${fileName}`;
 }
 
+// Function to handle file upload
+document.getElementById('upload-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    const fileInput = document.getElementById('file-input');
+    formData.append('file', fileInput.files[0]);
+
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('File uploaded successfully');
+            fetchFiles();  // Refresh the file list
+        } else {
+            alert('Upload failed: ' + result.error);
+        }
+    } catch (error) {
+        console.error('Error uploading file:', error);
+    }
+});
+
 // Fetch the files when the page loads
 window.onload = fetchFiles;
