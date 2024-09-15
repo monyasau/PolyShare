@@ -28,3 +28,8 @@ app.get('/download/:filename', (req, res) => {
         }
     });
 });
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://192.168.0.122:${PORT}`);
+});
