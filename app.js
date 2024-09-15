@@ -1,14 +1,18 @@
-const express = require('express');
+require('dotenv').config()
+const express = require('express'); 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
 const app = express();
-const PORT = 2345;
-const FILE_DIRECTORY = path.join(__dirname, 'shared_files');
+const PORT = process.env.PORT || 2345;
 
+const publicPath = path.join(__dirname, 'public');
+console.log("Serving static files from: ", publicPath);
+app.use(express.static(publicPath));
 
 // To Ensure the shared_files directory exists
+const FILE_DIRECTORY = path.join(process.cwd(), 'shared_files');
 if (!fs.existsSync(FILE_DIRECTORY)) {
     // If it does not exist the it will create it at runtime
     fs.mkdirSync(FILE_DIRECTORY);
@@ -17,8 +21,9 @@ if (!fs.existsSync(FILE_DIRECTORY)) {
 const networkInterfaces = os.networkInterfaces();
 let localIP;
 
-for (const interface of Object.values(networkInterfaces)) {
-    for (const iface of interface) {
+for (const netInterface of Object.values(networkInterfaces)) {
+    if (!netInterface) continue;
+    for (const iface of netInterface) {
         if (iface.family === 'IPv4' && !iface.internal) {
             localIP = iface.address;
             break;
@@ -27,9 +32,7 @@ for (const interface of Object.values(networkInterfaces)) {
     if (localIP) break;
 }
 
-// This shall Serve static HTML/CSS/JS files for the web interface
-// app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, 'public')));
+const resolvedIP = localIP || 'localhost';
 
 // API route to fetch available files (selected ofcourse)
 app.get('/api/files', (req, res) => {
@@ -51,8 +54,13 @@ app.get('/download/:filename', (req, res) => {
     });
 });
 
+// Serve the index.html on the root URL
+app.get('/', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+});
+
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://${localIP}:${PORT}`);
+    console.log(`Server is running on http://${resolvedIP}:${PORT}`);
     console.log(`Shared files directory: ${FILE_DIRECTORY}`);
 });
