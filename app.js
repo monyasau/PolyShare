@@ -3,6 +3,8 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const multer = require('multer');
+
 
 const app = express();
 const PORT = process.env.PORT || 2345;
@@ -10,6 +12,20 @@ const PORT = process.env.PORT || 2345;
 const publicPath = path.join(__dirname, 'public');
 console.log("Serving static files from: ", publicPath);
 app.use(express.static(publicPath));
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, FILE_DIRECTORY);
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+
 
 // To Ensure the shared_files directory exists
 const FILE_DIRECTORY = path.join(process.cwd(), 'shared_files');
@@ -52,6 +68,10 @@ app.get('/download/:filename', (req, res) => {
             res.status(404).send('File not found');
         }
     });
+});
+// Endpoint to upload files
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.json({ message: 'File uploaded successfully', filename: req.file.originalname });
 });
 
 // Serve the index.html on the root URL
