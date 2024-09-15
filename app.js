@@ -63,7 +63,7 @@ app.get('/api/files', (req, res) => {
 // Dynamic route for download of specific files
 app.get('/download/:filename', (req, res) => {
     const file = path.join(FILE_DIRECTORY, req.params.filename);
-    
+    // fancy way to checks if the file exists
     fs.access(file, fs.constants.F_OK, (err) => {
         if (err) {
             if (!res.headersSent) {
