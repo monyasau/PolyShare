@@ -64,21 +64,28 @@ app.get('/api/files', (req, res) => {
 app.get('/download/:filename', (req, res) => {
     const file = path.join(FILE_DIRECTORY, req.params.filename);
     
-    // Check if the file exists before attempting to download it
     fs.access(file, fs.constants.F_OK, (err) => {
         if (err) {
-            // File doesn't exist, respond with a 404 without invoking `res.download`
-            return res.status(404).send('File not found');
-        }
-        
-        // File exists, proceed to download
-        res.download(file, (err) => {
-            if (err) {
-                console.error('Error during file download:', err);
-                // Handle download errors
-                res.status(500).send('Error downloading file');
+            if (!res.headersSent) {
+                return res.status(404).send('File not found');
             }
-        });
+        } else {
+            res.download(file, (err) => {
+                if (err) {
+                    if (!res.headersSent) {
+                        console.error('Error during file download:', err);
+                        return res.status(500).send('Error downloading file');
+                    }
+                }
+            });
+        }
+    });
+
+    req.on('aborted', () => {
+        console.log('Request aborted');
+        if (!res.headersSent) {
+            res.end();
+        }
     });
 });
 
