@@ -63,12 +63,25 @@ app.get('/api/files', (req, res) => {
 // Dynamic route for download of specific files
 app.get('/download/:filename', (req, res) => {
     const file = path.join(FILE_DIRECTORY, req.params.filename);
-    res.download(file, (err) => {
+    
+    // Check if the file exists before attempting to download it
+    fs.access(file, fs.constants.F_OK, (err) => {
         if (err) {
-            res.status(404).send('File not found');
+            // File doesn't exist, respond with a 404 without invoking `res.download`
+            return res.status(404).send('File not found');
         }
+        
+        // File exists, proceed to download
+        res.download(file, (err) => {
+            if (err) {
+                console.error('Error during file download:', err);
+                // Handle download errors
+                res.status(500).send('Error downloading file');
+            }
+        });
     });
 });
+
 // Endpoint to upload files
 app.post('/upload', upload.single('file'), (req, res) => {
     res.json({ message: 'File uploaded successfully', filename: req.file.originalname });
