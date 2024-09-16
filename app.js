@@ -1,4 +1,5 @@
 require('dotenv').config()
+var qrcode = require('qrcode-terminal');
 const express = require('express'); 
 const fs = require('fs');
 const path = require('path');
@@ -103,4 +104,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://${resolvedIP}:${PORT}`);
     console.log(`Shared files directory: ${FILE_DIRECTORY}`);
+    qrcode.generate(`http://${resolvedIP}:${PORT}`);
 });
