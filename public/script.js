@@ -59,3 +59,4 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
 
 // Fetch the files when the page loads
 window.onload = fetchFiles;
+setInterval(fetchFiles,3000)
