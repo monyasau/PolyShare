@@ -1,11 +1,10 @@
-require('dotenv').config()
+require('dotenv').config();
 var qrcode = require('qrcode-terminal');
 const express = require('express'); 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const multer = require('multer');
-
 
 const app = express();
 const PORT = process.env.PORT || 2345;
@@ -14,6 +13,13 @@ const publicPath = path.join(__dirname, 'public');
 console.log("Serving static files from: ", publicPath);
 app.use(express.static(publicPath));
 
+const logData =()=>{
+    console.log("Server is Active")
+        console.log("Access the server at: http://192.168.1.122:2345")
+    console.log(`Server is running on http://${resolvedIP}:${PORT}`);
+    console.log(`Shared files directory: ${FILE_DIRECTORY}`);
+    qrcode.generate(`http://${resolvedIP}:${PORT}`, { small: true });
+}
 // Configure multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -26,8 +32,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-
 // To Ensure the shared_files directory exists
 const FILE_DIRECTORY = path.join(process.cwd(), 'shared_files');
 if (!fs.existsSync(FILE_DIRECTORY)) {
@@ -35,23 +39,34 @@ if (!fs.existsSync(FILE_DIRECTORY)) {
     fs.mkdirSync(FILE_DIRECTORY);
 }
 
-const networkInterfaces = os.networkInterfaces();
-let localIP;
 
-for (const netInterface of Object.values(networkInterfaces)) {
-    if (!netInterface) continue;
-    for (const iface of netInterface) {
-        if (iface.family === 'IPv4' && !iface.internal) {
-            localIP = iface.address;
-            break;
+// Function to update the local IP address
+let localIP ='localhost';
+let resolvedIP = localIP || 'localhost';
+const updateLocalIP=()=> {
+    const networkInterfaces = os.networkInterfaces();
+    for (const netInterface of Object.values(networkInterfaces)) {
+        if (!netInterface) continue;
+        for (const iface of netInterface) {
+            if (iface.family === 'IPv4' && !iface.internal) {
+                localIP = iface.address;
+                break;
+            }
         }
+        if (localIP) break;
     }
-    if (localIP) break;
+
+    if (localIP !== resolvedIP) {
+        resolvedIP = localIP || 'localhost';
+        process.stdout.write('\x1Bc');
+        logData(); // Update QR code if IP has changed
+    }
 }
 
-const resolvedIP = localIP || 'localhost';
+// Update the IP one time then every 30 seconds
+setInterval(updateLocalIP, 3000);
 
-// API route to fetch available files (selected ofcourse)
+// API route to fetch available files (selected of course)
 app.get('/api/files', (req, res) => {
     fs.readdir(FILE_DIRECTORY, (err, files) => {
         if (err) {
@@ -83,7 +98,7 @@ app.get('/download/:filename', (req, res) => {
     });
 
     req.on('aborted', () => {
-        console.log('Request aborted');
+        console.log('Request/download aborted');
         if (!res.headersSent) {
             res.end();
         }
@@ -102,7 +117,6 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://${resolvedIP}:${PORT}`);
-    console.log(`Shared files directory: ${FILE_DIRECTORY}`);
-    qrcode.generate(`http://${resolvedIP}:${PORT}`,{small: true});
+    logData();
 });
+
