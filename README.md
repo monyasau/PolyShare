@@ -84,11 +84,32 @@ No dependencies as the ones needed are bundled with the executable
 The web port is configurable with a .env file in the root directory
 
 ## Usage
-...
 
-## Known issues
+After downloading the executable, simply run the executable file for your operating system, and PolyShare will start a local server for file sharing within the network.
+### Run PolyShare, By:
+#### Gui:
+ Double click the executable file.
 
-...
+#### CLI/Terminal:
+
+- On Windows: ``./polyShare-win-x64.exe``
+- On Linux: ``./polyShare-linux-x64``
+- On macOS: ``./polyShare-macos-x64``
+
+## Key Features
+
+- **File sharing up to 100 GB+:** Easily transfer files of any size, with the limit set by your network's bandwidth and storage capacity.
+
+- **High-speed transfer:** Achieve upload and download speeds up to 450+ MB/s, making it ideal for large file transfers.
+- **Cross-platform support:** Seamless file sharing across Android, IOS, Windows, Linux, and macOS.
+
+- **Simple UI**: Intuitive, browser-based interface to upload and download files, view transfer history, and manage settings.
+- **Resume interrupted transfers:** Allows resumption of file transfers in case of interruption.
+
+## Known Issues
+**Network firewall restrictions:** In some environments( first time run on windows), firewalls may block local file sharing. Ensure proper configuration of your firewall on host device to allow PolyShare traffic.
+
+**macOS permissions:** On macOS, you may need to grant permissions for network file sharing in the system preferences.
 
 ## Getting help
 
@@ -99,6 +120,7 @@ If you have questions, concerns, bug reports, etc, please file an issue in this 
 
 ... [CONTRIBUTING](CONTRIBUTING.md).
 
-## The why
+## Why i built this
 
-...
+I went through hell trying to transfer stuffs from my windows device to ios and a couple other devices,
+so i built PolyShare to offer a fast, user-friendly way of sharing large files across devices on the same network without relying on third-party cloud services or external storage. Its speed and simplicity make it ideal for local file sharing in offices, homes, and educational environments.
