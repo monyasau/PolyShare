@@ -10,14 +10,14 @@ const app = express();
 const PORT = process.env.PORT || 2345;
 
 const publicPath = path.join(__dirname, 'public');
-console.log("Serving static files from: ", publicPath);
+// console.log("Serving static files from: ", publicPath);
 app.use(express.static(publicPath));
 
 const logData =()=>{
-    console.log("Server is Active")
-        console.log("Access the server at: http://192.168.1.122:2345")
-    console.log(`Server is running on http://${resolvedIP}:${PORT}`);
-    console.log(`Shared files directory: ${FILE_DIRECTORY}`);
+    console.log("Polyshare is ready to send and receive files")
+    console.log(`Upload more files to the server at: http://${resolvedIP}:${PORT}/new`)
+    console.log(`Share files with others http://${resolvedIP}:${PORT}`);
+    console.log(`Files in: ${FILE_DIRECTORY} will be hosted on the server`);
     qrcode.generate(`http://${resolvedIP}:${PORT}`, { small: true });
 }
 // Configure multer for file uploads
@@ -113,6 +113,9 @@ app.post('/upload', upload.single('file'), (req, res) => {
 // Serve the index.html on the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
+});
+app.get('/new', (req, res) => {
+    res.sendFile(path.join(publicPath, 'upload.html'));
 });
 
 // Start the server
