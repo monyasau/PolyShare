@@ -106,7 +106,14 @@ After downloading the executable, simply run the executable file for your operat
 - **Simple UI**: Intuitive, browser-based interface to upload and download files, view transfer history, and manage settings.
 - **Resume interrupted transfers:** Allows resumption of file transfers in case of interruption.
 
+## Additional Features
+
+- **No internet connection needed:** PolyShare works over the local network, making it a secure and offline solution for file transfers.
+- **Drag-and-drop support:** Easily drag files directly into the browser window for instant sharing.
+- **Real-time progress updates:** Track file transfer progress with real-time updates in the browser UI.
+
 ## Known Issues
+
 **Network firewall restrictions:** In some environments( first time run on windows), firewalls may block local file sharing. Ensure proper configuration of your firewall on host device to allow PolyShare traffic.
 
 **macOS permissions:** On macOS, you may need to grant permissions for network file sharing in the system preferences.
