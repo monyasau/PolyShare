@@ -8,6 +8,7 @@
 
 ## Installation
 
+Refer to [INSTALL](INSTALL.md) document.
 Installation is straight forward non persistent process, run the executable in any directory/folder and polyshare will create a folder called "shared_files" there, any files in the "shared_files" folder will become sharable. you can also add files to the folder by uploading via browser interface.
 
 # Building the executables
@@ -68,10 +69,6 @@ pkg  --targets node16-macos-arm64 --output polyShare-macos-arm64
 ## Dependencies
 
 No dependencies as the ones needed are bundled with the executable
-
-## Installation
-
-Refer [INSTALL](INSTALL.md) document.
 
 ## Configuration
 
