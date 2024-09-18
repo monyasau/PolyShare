@@ -1,6 +1,9 @@
 # Polyshare
 
-**Description**:  A local-network file share system
+**Description**:  A local-network file share system:
+
+PolyShare: Fast, Cross-Platform Local Network File Sharing
+
 
 
   - **Technology stack**: HTML, CSS, Javascript, NodeJS
