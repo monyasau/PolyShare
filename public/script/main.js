@@ -9,15 +9,21 @@ async function fetchFiles() {
 
         files.forEach(file => {
             const listItem = document.createElement('li');
+            const fileInfoDiv = document.createElement('li');
+            fileInfoDiv.className="fileInfo"
 
             const fileName = document.createElement('span');
-            fileName.textContent = file;
+            const fileSize = document.createElement('span');
+            fileName.textContent = file.fileName;
+            fileSize.textContent = file.fileSize;
 
             const downloadButton = document.createElement('button');
             downloadButton.textContent = 'Download';
             downloadButton.onclick = () => downloadFile(file);
 
-            listItem.appendChild(fileName);
+            fileInfoDiv.appendChild(fileName);
+            fileInfoDiv.appendChild(fileSize);
+            listItem.appendChild(fileInfoDiv);
             listItem.appendChild(downloadButton);
             fileList.appendChild(listItem);
         });
