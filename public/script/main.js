@@ -5,7 +5,15 @@ async function fetchFiles() {
         const files = await response.json();
 
         const fileList = document.getElementById('file-list');
-        fileList.innerHTML = '';  // Clear existing content
+        const header = document.getElementById('header');
+        console.log(files)
+        if(files.length>0){
+        header.innerHTML = files.length===1?"<code>1</code> file is ready to be shared ":`<code>${files.length}</code> files are ready for transfer.`;  // Clear existing content if there are files
+        fileList.innerHTML = '';  // Clear existing content if there are files
+        }else{
+        header.innerHTML = "Currently, there are no files ready to be transferred";  // Clear existing content if there are files
+            fileList.innerHTML="With <code>PolyShare</code>, you can easily share files—like videos, photos, documents, or apps—between your devices, as long as they’re on the same Wi-Fi or Ethernet network interface.<em> Try adding some files to begin.</em>"
+        }
 
         files.forEach(file => {
             const listItem = document.createElement('li');
@@ -44,7 +52,7 @@ document.getElementById("file-input").addEventListener("change", function() {
     
     if (fileInput.files.length > 0) {
         var fileName = fileInput.files[0].name;
-        selectedFileDiv.textContent = "Selected file: " + fileName;
+        selectedFileDiv.textContent = fileName+" is ready for upload";
     } else {
         selectedFileDiv.textContent = "No file has been selected";
     }

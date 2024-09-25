@@ -25,6 +25,14 @@ h1 {
     margin-bottom: 20px;
     font-size: 1.8rem;
 }
+code {
+    border-radius: 5px;
+    background: #dfdbdb;
+    padding: 2px 6px;
+}
+code:hover{
+    background: #cfcccc;
+}
 
 ul {
     list-style-type: none;
@@ -35,6 +43,7 @@ ul {
     gap: 20px;
     /* justify-content: space-between; */
     display: flex;
+    flex-wrap: wrap;
 }
 .shadow{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -57,6 +66,7 @@ ul {
 }
 
 #uploadArea {
+    width: 100%;
     font-family: calibri;
     padding: 10px;
     -webkit-border-radius: 5px;
@@ -68,16 +78,19 @@ ul {
     cursor: pointer;
   }
   #selectedFile {
-    
+    width: 100%;
     font-family: calibri;
     padding: 10px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     border: 1px dashed #BBB;
+    justify-content: center;
     text-align: center;
     background-color: #DDD;
     cursor: pointer;
+    display: flex;
+    align-items: center;
   }
 
 button {
@@ -140,5 +153,11 @@ button:hover {
         font-size: 0.9rem;
         padding: 6px 12px;
         width: fit-content;
+    }
+    .uploadControls{
+    flex-wrap: nowrap;
+    }
+    #uploadArea{
+    width: fit-content;
     }
 }
