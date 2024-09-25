@@ -22,7 +22,6 @@ async function fetchFiles() {
             const downloadButton = document.createElement('button');
             downloadButton.textContent = 'Download';
             downloadButton.onclick = () => downloadFile(file.fileName);
-
             fileInfoDiv.appendChild(fileName);
             fileInfoDiv.appendChild(fileSize);
             listItem.appendChild(fileInfoDiv);
@@ -33,6 +32,23 @@ async function fetchFiles() {
         console.error('Error fetching files:', error);
     }
 }
+// Function to open the file dialog when clicking on the custom upload area
+function getFile() {
+    document.getElementById("file-input").click();
+}
+
+// Function to display the selected file name
+document.getElementById("file-input").addEventListener("change", function() {
+    var fileInput = document.getElementById("file-input");
+    var selectedFileDiv = document.getElementById("selectedFile");
+    
+    if (fileInput.files.length > 0) {
+        var fileName = fileInput.files[0].name;
+        selectedFileDiv.textContent = "Selected file: " + fileName;
+    } else {
+        selectedFileDiv.textContent = "No file has been selected";
+    }
+});
 
 // Function to download a file
 function downloadFile(fileName) {
@@ -68,3 +84,58 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
 // Fetch the files when the page loads
 window.onload = fetchFiles;
 setInterval(fetchFiles,3000)
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     const fileInput = document.getElementById('file-input');
+//     const uploadArea = document.getElementById('uploadArea');
+//     const uploadForm = document.getElementById('upload-form');
+
+//     // Open file picker when the upload area is clicked
+//     uploadArea.addEventListener('click', function() {
+//         fileInput.click();
+//     });
+
+//     // Drag over event
+//     uploadArea.addEventListener('dragover', function (e) {
+//         e.preventDefault();
+//         uploadArea.classList.add('dragover');
+//     });
+
+//     // Drag leave event
+//     uploadArea.addEventListener('dragleave', function (e) {
+//         uploadArea.classList.remove('dragover');
+//     });
+
+//     // Drop event
+//     uploadArea.addEventListener('drop', function (e) {
+//         e.preventDefault();
+//         uploadArea.classList.remove('dragover');
+
+//         // Get the dropped files
+//         const files = e.dataTransfer.files;
+
+//         // If the user dropped files, attach the first file to the input element
+//         if (files.length > 0) {
+//             fileInput.files = files;
+//         }
+//     });
+
+//     // Submit form
+//     uploadForm.addEventListener('submit', async function (e) {
+//         e.preventDefault();
+
+//         const formData = new FormData(uploadForm);
+//         await fetch('/upload', { // Adjust URL to your upload endpoint
+//             method: 'POST',
+//             body: formData
+//         }).then(response => {
+//             return response.json();
+//         }).then(result => {
+//             console.log('Success:', result);
+//             // Update file list or display success message
+//         }).catch(error => {
+//             console.error('Error:', error);
+//         });
+//     });
+// });
