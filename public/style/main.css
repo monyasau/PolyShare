@@ -10,6 +10,7 @@ body {
 }
 
 .container {
+    width: 90%;
     margin: 50px auto;
     background-color: #fff;
     padding: 10px;
@@ -30,6 +31,11 @@ ul {
     padding: 0;
     margin: 0;
 }
+.uploadControls{
+    gap: 20px;
+    /* justify-content: space-between; */
+    display: flex;
+}
 .shadow{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -49,6 +55,30 @@ ul {
 .fileListItem:hover {
     background-color: #f1f1f1;
 }
+
+#uploadArea {
+    font-family: calibri;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px dashed #BBB;
+    text-align: center;
+    background-color: #DDD;
+    cursor: pointer;
+  }
+  #selectedFile {
+    
+    font-family: calibri;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px dashed #BBB;
+    text-align: center;
+    background-color: #DDD;
+    cursor: pointer;
+  }
 
 button {
     padding: 8px 15px;
