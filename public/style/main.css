@@ -31,7 +31,7 @@ ul {
     margin: 0;
 }
 
-ul li {
+.fileListItem {
     background-color: #f9f9f9;
     margin: 10px 0;
     padding: 15px;
@@ -44,7 +44,7 @@ ul li {
     transition: background-color 0.3s ease;
 }
 
-ul li:hover {
+.fileListItem:hover {
     background-color: #f1f1f1;
 }
 
@@ -64,7 +64,21 @@ button:hover {
     background-color: #218838;
     transform: scale(1.05);
 }
-
+.fileInfo {
+    display: flex;
+    gap: 10px;
+}
+.fileSize{
+    font-size: smaller;
+    border-radius: 20px;
+    background: #b8b4b4;
+    padding: 2px 6px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.fileSize:hover{
+    background: #8a8787;
+}
 /* MD */
 
 @media (min-width: 768px) {
@@ -78,7 +92,7 @@ button:hover {
 /* SM */
 
 @media (min-width: 480px) {
-    ul li {
+    .fileListItem {
         /* flex-direction: column; */
         align-items: flex-start;
     }
