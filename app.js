@@ -82,10 +82,15 @@ app.get('/api/files', (req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Unable to list files' });
         }
-        const file = path.join(FILE_DIRECTORY, files[0]);
-        let fileSize = fs.statSync(file).size;
-        console.log(calculateFileSize(fileSize))
-        res.json(files);
+        let filesWithSizes=[];
+        files.forEach((currentFileName)=>{
+            const file = path.join(FILE_DIRECTORY, currentFileName);
+            let fileSizeInByte = fs.statSync(file).size;
+            let fileSize = calculateFileSize(fileSizeInByte)
+            let fileInfo = {fileName:currentFileName,fileSize}
+            filesWithSizes.push(fileInfo)
+        })
+        res.status(200).json(filesWithSizes);
     });
 });
 
