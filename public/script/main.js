@@ -10,15 +10,18 @@ async function fetchFiles() {
         files.forEach(file => {
             const listItem = document.createElement('li');
             const fileInfoDiv = document.createElement('li');
-            fileInfoDiv.className="fileInfo"
-
             const fileName = document.createElement('span');
             const fileSize = document.createElement('span');
+            
+            fileInfoDiv.className="fileInfo"
+            fileSize.className="fileSize"
+            listItem.className="fileListItem"
             fileName.textContent = file.fileName;
             fileSize.textContent = file.fileSize;
 
             const downloadButton = document.createElement('button');
             downloadButton.textContent = 'Download';
+            downloadButton.onclick = () => downloadFile(file);
             downloadButton.onclick = () => downloadFile(file);
 
             fileInfoDiv.appendChild(fileName);
