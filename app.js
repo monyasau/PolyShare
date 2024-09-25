@@ -66,12 +66,25 @@ const updateLocalIP=()=> {
 // Update the IP one time then every 30 seconds
 setInterval(updateLocalIP, 3000);
 
+const calculateFileSize=(sizeInBytes)=>{
+    const units =["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"];
+    let unitIndex =0;
+    while (sizeInBytes >= 1024 && unitIndex <units.length-1){
+        sizeInBytes /= 1024;
+        unitIndex++
+    }
+    return `${sizeInBytes.toFixed(2)} ${units[unitIndex]}`
+}
+
 // API route to fetch available files (selected of course)
 app.get('/api/files', (req, res) => {
     fs.readdir(FILE_DIRECTORY, (err, files) => {
         if (err) {
             return res.status(500).json({ error: 'Unable to list files' });
         }
+        const file = path.join(FILE_DIRECTORY, files[0]);
+        let fileSize = fs.statSync(file).size;
+        console.log(calculateFileSize(fileSize))
         res.json(files);
     });
 });
@@ -98,7 +111,7 @@ app.get('/download/:filename', (req, res) => {
     });
 
     req.on('aborted', () => {
-        console.log('Request/download aborted');
+        console.log('Request/download aborted, Retrying');
         if (!res.headersSent) {
             res.end();
         }
