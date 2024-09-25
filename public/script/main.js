@@ -6,7 +6,6 @@ async function fetchFiles() {
 
         const fileList = document.getElementById('file-list');
         const header = document.getElementById('header');
-        console.log(files)
         if(files.length>0){
         header.innerHTML = files.length===1?"<code>1</code> file is ready to be shared ":`<code>${files.length}</code> files are ready for transfer.`;  // Clear existing content if there are files
         fileList.innerHTML = '';  // Clear existing content if there are files
@@ -79,7 +78,7 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
 
         const result = await response.json();
         if (response.ok) {
-            alert('File uploaded successfully');
+            alert(fileInput.files[0].name+' has been uploaded successfully');
             fetchFiles();  // Refresh the file list
         } else {
             alert('Upload failed: ' + result.error);
