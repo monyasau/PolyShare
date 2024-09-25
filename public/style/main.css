@@ -30,7 +30,9 @@ ul {
     padding: 0;
     margin: 0;
 }
-
+.shadow{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 .fileListItem {
     background-color: #f9f9f9;
     margin: 10px 0;
@@ -66,9 +68,11 @@ button:hover {
 }
 .fileInfo {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    margin-bottom: 10px;
 }
 .fileSize{
+    width: fit-content;
     font-size: smaller;
     border-radius: 20px;
     background: #b8b4b4;
@@ -77,6 +81,7 @@ button:hover {
     cursor: pointer;
 }
 .fileSize:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background: #8a8787;
 }
 /* MD */
@@ -95,6 +100,11 @@ button:hover {
     .fileListItem {
         /* flex-direction: column; */
         align-items: flex-start;
+    }
+    .fileInfo{
+        margin: 0;
+    gap: 10px;
+    flex-direction: row;
     }
     button {
         font-size: 0.9rem;
