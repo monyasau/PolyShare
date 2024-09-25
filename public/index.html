@@ -11,11 +11,19 @@
         <h1>Available Files</h1>
         <ul id="file-list">
             <!-- File list of available files will be dynamically populated here -->
+             
         </ul>
         <h2>Upload a File</h2>
         <form id="upload-form" enctype="multipart/form-data">
-            <input type="file" id="file-input" name="file" required>
-            <button type="submit">Upload</button>
+            <div style='height: 0px;width: 0px; overflow:hidden;'>
+                <input type="file" id="file-input" name="file" required>
+            </div>
+            <div class="uploadControls">
+                <button type="submit">Upload the selected file</button>
+                <div id="uploadArea" onclick="getFile()">Click to select a file for upload</div>
+                <div id="selectedFile">No file has been selected</div>
+            </div>
+          
         </form>
     </div>
 
