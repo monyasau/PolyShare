@@ -21,8 +21,7 @@ async function fetchFiles() {
 
             const downloadButton = document.createElement('button');
             downloadButton.textContent = 'Download';
-            downloadButton.onclick = () => downloadFile(file);
-            downloadButton.onclick = () => downloadFile(file);
+            downloadButton.onclick = () => downloadFile(file.fileName);
 
             fileInfoDiv.appendChild(fileName);
             fileInfoDiv.appendChild(fileSize);
