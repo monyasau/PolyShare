@@ -12,6 +12,7 @@ export function Toast(message, type = 'info', duration=3000) {
     toast.style.transition = 'opacity 0.5s';
     toast.style.display = 'flex';  // To align icon and text
     toast.style.alignItems = 'center';  // Center align the text and icon
+    toast.style.gap = '10px';  // Center align the text and icon
 
     // Set background color based on the toast type
     switch (type) {
@@ -34,24 +35,8 @@ export function Toast(message, type = 'info', duration=3000) {
 
             // Create spinner (loading icon)
             const spinner = document.createElement('div');
-            spinner.style.border = '4px solid #f3f3f3';  // Light gray
-            spinner.style.borderTop = '4px solid #000';  // Black spinner
-            spinner.style.borderRadius = '50%';
-            spinner.style.width = '15px';
-            spinner.style.height = '15px';
-            spinner.style.marginRight = '10px';
-            spinner.style.animation = 'spin 1s linear infinite';
-
-            // Define the keyframes for spin animation
-            const styleSheet = document.createElement('style');
-            styleSheet.type = 'text/css';
-            styleSheet.innerText = `
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-            `;
-            document.head.appendChild(styleSheet);
+            spinner.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity="0.25"/><path fill="currentColor" d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"><animateTransform attributeName="transform" dur="0.563s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg>';
+            
 
             // Append spinner and message to toast
             toast.appendChild(spinner);
@@ -74,14 +59,6 @@ export function Toast(message, type = 'info', duration=3000) {
 
     // Set duration for removing the toast
     duration = type === 'loading' ? 99999999 : duration;
-
-    // Remove the toast after the duration
-    // setTimeout(() => {
-    //     toast.style.opacity = '0';
-    //     setTimeout(() => {
-    //         toast.remove();
-    //     }, 500);
-    // }, duration);
 
     const timeoutId = setTimeout(() => {
         closeToast();
