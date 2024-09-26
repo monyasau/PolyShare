@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pkg . --targets node16-win-x64,node16-linux-x64 --output polyShare"
+    "build": "pkg . --targets node16-win-x64,node16-linux-x64,node16-macos-x64 --output polyShare"
   },
   "author": "Olanrewaju Olajide",
   "license": "ISC",
