@@ -1,6 +1,11 @@
-import { showToast } from '../components/toast/toast.js';
+import { Toast } from '../components/toast/toast.js';
+/* Toast Usage Guide */
 
-showToast("Hello, this is a synchronous toast!");
+// Toast("Hello, this is a synchronous toast!","info",5000);
+// // Toast("Hello, this is a synchronous toast!","warning",7000);
+// // Toast("Hello, this is a synchronous toast!","error",9000);
+// // Toast("Hello, this is a synchronous toast!","loading",11000);
+// // Toast("Hello, this is a synchronous toast!","success",13000);
 
 // Fetch the list of files from the server
 async function fetchFiles() {
@@ -13,7 +18,7 @@ async function fetchFiles() {
         if(files.length>0){
         header.innerHTML = files.length===1?"<code>1</code> file is ready to be shared ":`<code>${files.length}</code> files are ready for transfer.`;  // Clear existing content if there are files
         fileList.innerHTML = '';  // Clear existing content if there are files
-        }else{
+    }else{
         header.innerHTML = "Currently, there are no files ready to be transferred";  // Clear existing content if there are files
             fileList.innerHTML="With <code>PolyShare</code>, you can easily share files—like videos, photos, documents, or apps—between your devices, as long as they’re on the same Wi-Fi or Ethernet network interface.<em> Try adding some files to begin.</em>"
         }
@@ -40,13 +45,14 @@ async function fetchFiles() {
             fileList.appendChild(listItem);
         });
     } catch (error) {
+        Toast(`An error occured, reload the page and try again`,"error")
         console.error('Error fetching files:', error);
     }
 }
 // Function to open the file dialog when clicking on the custom upload area
-function getFile() {
-    document.getElementById("file-input").click();
-}
+const triggerFileSelect=()=>document.getElementById("file-input").click();
+document.getElementById("fileSelectModalTrigger").addEventListener("click", triggerFileSelect);
+
 
 // Function to display the selected file name
 document.getElementById("file-input").addEventListener("change", function() {
@@ -63,18 +69,21 @@ document.getElementById("file-input").addEventListener("change", function() {
 
 // Function to download a file
 function downloadFile(fileName) {
+    Toast(`Download of ${fileName} has start`,"success")
     window.location.href = `/download/${fileName}`;
 }
 
 // Function to handle file upload
 document.getElementById('upload-form').addEventListener('submit', async (event) => {
     event.preventDefault();
-
+    
     const formData = new FormData();
     const fileInput = document.getElementById('file-input');
-    formData.append('file', fileInput.files[0]);
-
+    const currentFile = fileInput.files[0]
+    formData.append('file', currentFile);
+    
     try {
+        Toast(`Uploading ${currentFile.name} of size (${currentFile.fileSize})`,"loading")
         const response = await fetch('/upload', {
             method: 'POST',
             body: formData
@@ -82,7 +91,7 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
 
         const result = await response.json();
         if (response.ok) {
-            alert(fileInput.files[0].name+' has been uploaded successfully');
+            alert(currentFile.name+' has been uploaded successfully');
             fetchFiles();  // Refresh the file list
         } else {
             alert('Upload failed: ' + result.error);
