@@ -73,7 +73,7 @@ export function Toast(message, type = 'info', duration=3000) {
     }, 100);
 
     // Set duration for removing the toast
-    duration = type === 'loading' ? 5000 : duration;
+    duration = type === 'loading' ? 99999999 : duration;
 
     // Remove the toast after the duration
     // setTimeout(() => {
