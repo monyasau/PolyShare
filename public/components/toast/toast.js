@@ -1,5 +1,6 @@
-export function showToast(message, type = 'info') {
+export function Toast(message, type = 'info', duration=3000) {
     const toast = document.createElement('div');
+    toast.textContent = message;
     toast.style.position = 'fixed';
     toast.style.bottom = '20px';
     toast.style.right = '20px';
@@ -72,7 +73,7 @@ export function showToast(message, type = 'info') {
     }, 100);
 
     // Set duration for removing the toast
-    const duration = type === 'loading' ? 5000 : 3000;
+    duration = type === 'loading' ? 5000 : duration;
 
     // Remove the toast after the duration
     setTimeout(() => {
