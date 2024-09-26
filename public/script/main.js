@@ -83,7 +83,7 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
     formData.append('file', currentFile);
     
     try {
-        Toast(`Uploading ${currentFile.name} of size (${currentFile.fileSize})`,"loading")
+        const uploadingToast = Toast(`Uploading ${currentFile.name}`,"loading")
         const response = await fetch('/upload', {
             method: 'POST',
             body: formData
@@ -91,7 +91,8 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
 
         const result = await response.json();
         if (response.ok) {
-            alert(currentFile.name+' has been uploaded successfully');
+            uploadingToast.close()
+            Toast(`${currentFile.name} has been uploaded successfully`,"success",4000);
             fetchFiles();  // Refresh the file list
         } else {
             alert('Upload failed: ' + result.error);
