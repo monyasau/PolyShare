@@ -1,6 +1,6 @@
 export function Toast(message, type = 'info', duration=3000) {
     const toast = document.createElement('div');
-    toast.textContent = message;
+    type!=="loading"?toast.textContent = message:null;
     toast.style.position = 'fixed';
     toast.style.bottom = '20px';
     toast.style.right = '20px';
