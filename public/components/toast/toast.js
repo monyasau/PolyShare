@@ -1,18 +1,20 @@
 export function Toast(message, type = 'info', duration=3000) {
     const toast = document.createElement('div');
     type!=="loading"?toast.textContent = message:null;
+    toast.className = 'toast';
     toast.style.position = 'fixed';
-    toast.style.bottom = '20px';
-    toast.style.right = '20px';
-    toast.style.color = '#fff';
-    toast.style.padding = '10px 20px';
-    toast.style.borderRadius = '5px';
-    toast.style.zIndex = '1000';
-    toast.style.opacity = '0';
-    toast.style.transition = 'opacity 0.5s';
-    toast.style.display = 'flex';  // To align icon and text
-    toast.style.alignItems = 'center';  // Center align the text and icon
-    toast.style.gap = '10px';  // Center align the text and icon
+toast.style.top = '20px';
+toast.style.right = '15px';
+toast.style.color = '#fff';
+toast.style.padding = '10px 20px';
+toast.style.borderRadius = '5px';
+toast.style.zIndex = '1000';
+toast.style.opacity = '0';
+toast.style.transition = 'opacity 0.5s';
+toast.style.display = 'flex';  // To align icon and text
+toast.style.alignItems = 'center';  // Center align the text and icon
+toast.style.gap = '10px';  // Center align the text and icon
+
 
     // Set background color based on the toast type
     switch (type) {
@@ -30,7 +32,6 @@ export function Toast(message, type = 'info', duration=3000) {
             break;
         case 'loading':
             toast.style.backgroundColor = 'gray';
-            toast.style.color = '#000';  // Optional: dark text for contrast on gray background
             toast.style.fontStyle = 'italic'; // To emphasize loading state
 
             // Create spinner (loading icon)
