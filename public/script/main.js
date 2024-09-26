@@ -45,7 +45,7 @@ async function fetchFiles() {
             fileList.appendChild(listItem);
         });
     } catch (error) {
-        Toast(`An error occured, reload the page and try again`,"error")
+        // Toast(`An error occured, reload the page and try again`,"error")
         console.error('Error fetching files:', error);
     }
 }
