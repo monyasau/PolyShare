@@ -95,10 +95,10 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
             Toast(`${currentFile.name} has been uploaded successfully`,"success",4000);
             fetchFiles();  // Refresh the file list
         } else {
-            alert('Upload failed: ' + result.error);
+            Toast(`Upload of ${currentFile.name} failed, try again`,"error",4000);
         }
     } catch (error) {
-        console.error('Error uploading file:', error);
+        Toast(`Upload of ${currentFile.name} failed, try again`,"error",4000);
     }
 });
 
