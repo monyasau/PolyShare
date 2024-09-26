@@ -105,6 +105,7 @@ app.get('/download/:filename', (req, res) => {
             }
         } else {
             res.download(file, (err) => {
+                console.log("Downloading: ",req.params.filename)
                 if (err) {
                     if (!res.headersSent) {
                         console.error('Error during file download:', err);
