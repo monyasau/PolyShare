@@ -1,3 +1,7 @@
+import { showToast } from '../components/toast/toast.js';
+
+showToast("Hello, this is a synchronous toast!");
+
 // Fetch the list of files from the server
 async function fetchFiles() {
     try {
