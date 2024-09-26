@@ -65,7 +65,7 @@ ul {
     background-color: #f1f1f1;
 }
 
-#uploadArea {
+#fileSelectModalTrigger {
     width: 100%;
     font-family: calibri;
     padding: 10px;
@@ -193,7 +193,7 @@ button:hover {
     .uploadControls{
     flex-wrap: nowrap;
     }
-    #uploadArea{
+    #fileSelectModalTrigger{
     width: fit-content;
     }
 }
