@@ -76,10 +76,27 @@ export function Toast(message, type = 'info', duration=3000) {
     duration = type === 'loading' ? 5000 : duration;
 
     // Remove the toast after the duration
-    setTimeout(() => {
+    // setTimeout(() => {
+    //     toast.style.opacity = '0';
+    //     setTimeout(() => {
+    //         toast.remove();
+    //     }, 500);
+    // }, duration);
+
+    const timeoutId = setTimeout(() => {
+        closeToast();
+    }, duration);
+
+    // Function to remove the toast
+    function closeToast() {
         toast.style.opacity = '0';
         setTimeout(() => {
             toast.remove();
         }, 500);
-    }, duration);
+    }
+
+    // Return an object with a `close` method to allow programmatic closing
+    return {
+        close: closeToast
+    };
 }
