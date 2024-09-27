@@ -1,3 +1,4 @@
+import { newEvent } from '../components/achieve/index.js';
 import { Toast } from '../components/toast/toast.js';
 /* Toast Usage Guide */
 
@@ -6,12 +7,13 @@ import { Toast } from '../components/toast/toast.js';
 // // Toast("Hello, this is a synchronous toast!","error",9000);
 // // Toast("Hello, this is a synchronous toast!","loading",11000);
 // // Toast("Hello, this is a synchronous toast!","success",13000);
-
+let filesInDirectory =[]
 // Fetch the list of files from the server
 async function fetchFiles() {
     try {
         const response = await fetch('/api/files');
         const files = await response.json();
+        filesInDirectory=files
 
         const fileList = document.getElementById('file-list');
         const header = document.getElementById('header');
@@ -98,6 +100,12 @@ document.getElementById('upload-form').addEventListener('submit', async (event) 
             Toast(`Upload of ${currentFile.name} failed, try again`,"error",4000);
         }
     } catch (error) {
+        newEvent("Upload error",{
+            serverUrl: `http://${resolvedIP}:${PORT}`,
+            pageUrl: `${window.location.href}`,
+            uploadedFile: currentFile,
+            files: filesInDirectory
+            });
         Toast(`Upload of ${currentFile.name} failed, try again`,"error",4000);
     }
 });
