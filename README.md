@@ -15,6 +15,15 @@ PolyShare: Fast, Cross-Platform Local Network File Sharing
 
 Installation is straight forward non persistent process, run the executable in any directory/folder and polyshare will create a folder called "shared_files" there, any files in the "shared_files" folder will become sharable. you can also add files to the folder by uploading via browser interface.
 
+
+## 🤝 How can you help build?
+
+1. Fork this repo
+2. Create your feature branch (`git checkout -b my-new-super-feature`)
+3. Commit your changes (`git commit -am 'Add some cool feature'`)
+4. Push to the branch (`git push origin my-new-super-feature`)
+5. Create a new pull request
+
 # Building the executables
 
 ## Executable Generation
