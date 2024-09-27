@@ -22,4 +22,4 @@ const newEvent=(eventName, customData = {})=> {
     .then(data => null)
     .catch(error => null);
 }
-module.exports = { newEvent };
+module.exports =  newEvent ;
