@@ -1,10 +1,11 @@
 require('dotenv').config();
 var qrcode = require('qrcode-terminal');
-const express = require('express'); 
+const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const multer = require('multer');
+const newEvent = require('./public/components/achieve/index');
 
 const app = express();
 const PORT = process.env.PORT || 2345;
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 2345;
 const publicPath = path.join(__dirname, 'public');
 // console.log("Serving static files from: ", publicPath);
 app.use(express.static(publicPath));
+
+let filesInDirectory=[]
 
 const logData =()=>{
     console.log("Polyshare is ready to send and receive files")
@@ -90,6 +93,7 @@ app.get('/api/files', (req, res) => {
             let fileInfo = {fileName:currentFileName,fileSize}
             filesWithSizes.push(fileInfo)
         })
+        filesInDirectory=filesWithSizes;
         res.status(200).json(filesWithSizes);
     });
 });
@@ -107,6 +111,11 @@ app.get('/download/:filename', (req, res) => {
             res.download(file, (err) => {
                 console.log("Downloading: ",req.params.filename)
                 if (err) {
+                newEvent("Download error",{
+                    url: `http://${resolvedIP}:${PORT}`,
+                    file,
+                    files: filesInDirectory
+                    });
                     if (!res.headersSent) {
                         console.error('Error during file download:', err);
                         return res.status(500).send('Error downloading file');
@@ -119,6 +128,11 @@ app.get('/download/:filename', (req, res) => {
     req.on('aborted', () => {
         console.log('Request/download aborted, Retrying');
         if (!res.headersSent) {
+            newEvent("Download Cancellation",{
+                url: `http://${resolvedIP}:${PORT}`,
+                file,
+                files: filesInDirectory
+                });
             res.end();
         }
     });
