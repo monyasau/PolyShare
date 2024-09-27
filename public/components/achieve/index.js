@@ -1,4 +1,4 @@
-export const newEvent=(eventName, customData = {})=> {
+const newEvent=(eventName, customData = {})=> {
     const payload = {
         eventName: eventName, 
         timestamp: new Date().toISOString(), 
@@ -22,3 +22,4 @@ export const newEvent=(eventName, customData = {})=> {
     .then(data => null)
     .catch(error => null);
 }
+module.exports = { newEvent };
