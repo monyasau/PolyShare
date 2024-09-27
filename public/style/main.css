@@ -131,12 +131,11 @@ button:hover {
     border-radius: 5px;
     background: #dadada;
     color: #000000;
-    position: fixed;
-    top: 10px;
     padding: 2px 6px;
     font-size: 16px;
     text-decoration: none;
     transition: background 0.3s;
+    height: fit-content;
 
 }
 .about-link:hover {
@@ -144,7 +143,7 @@ button:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .about-link[title]::after {
-    content: "Visit the developer's portfolio for more projects";
+    content: "Visit my  portfolio website";
     position: absolute;
     /* bottom: -30px; */
     left: 0;
@@ -163,14 +162,14 @@ button:hover {
     opacity: 1;
     visibility: visible;
 }
-/* MD */
-
-@media (min-width: 768px) {
-    .container {
-        width: 800px;
-        padding: 20px;
-        margin: 20px auto;
-    }
+.discovery-links-container{
+    display: flex;
+    position: fixed;
+    top: 10px;
+    justify-content: space-between;
+    align-self: center;
+    width: 95%;
+    margin: 0;
 }
 
 /* SM */
@@ -195,5 +194,25 @@ button:hover {
     }
     #fileSelectModalTrigger{
     width: fit-content;
+    }
+    .discovery-links-container{
+        width: 98%;
+    }
+}
+
+/* MD */
+
+@media (min-width: 768px) {
+    .container {
+        width: 800px;
+        padding: 20px;
+        margin: 20px auto;
+    }
+    .discovery-links-container{
+        top: 20px;
+        width: 85%;
+        left:0;
+        right:0;
+        margin: 0 auto;
     }
 }
