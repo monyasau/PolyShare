@@ -1,4 +1,4 @@
-import { newEvent } from '../components/achieve/index.js';
+import { newEvent } from '../components/achieve/indexEs.js';
 import { Toast } from '../components/toast/toast.js';
 /* Toast Usage Guide */
 
