@@ -21,14 +21,16 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Responsiveness of web ui
+- Error collection for debugging
+- Create toast component for better UX
 
 ### Fixed
 
-- download cancellation error
+- Download cancellation error
 
 ### Changed
 
-- ...
+- Code structure
 
 ### Removed
 
