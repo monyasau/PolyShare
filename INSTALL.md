@@ -16,15 +16,14 @@ The installation process is straightforward and non-persistent. Follow the steps
 2. Navigate to the directory where your executable (`polyShare-preview`) is located.
 3. Before running the executable, ensure it has the correct permissions. Run the following command to give it executable permissions:
 
-    ```bash
-    chmod +x polyShare-preview
-    ```
+   ```bash
+   chmod +x polyshare-vx.x.x
+   ```
 
 4. After setting permissions, run the executable:
 
-    ```bash
-    ./polyShare-preview
-    ```
+   ```bash
+   ./polyShare-preview
+   ```
 
 Once executed, the application will create a folder named `shared_files`, where you can manage your sharable files.
-
